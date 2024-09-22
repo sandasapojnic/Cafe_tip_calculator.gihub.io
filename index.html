@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Cafe tip calculator</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div class="container">
+      <div class="input-container">
+        <h2>Tip Calculator</h2>
+
+        <label for="total-bill">Bill amount</label>
+        <input
+          type="number"
+          id="total-bill"
+          placeholder="Enter amount"
+          required
+        />
+
+        <label>Select tip</label>
+        <div id="service-level" class="radio-group">
+          <input type="radio" id="remarkable" name="service" value="0.30" />
+          <label for="remarkable" class="radio-btn">30%</label>
+
+          <input type="radio" id="good" name="service" value="0.20" />
+          <label for="good" class="radio-btn">20%</label>
+
+          <input type="radio" id="ok" name="service" value="0.15" />
+          <label for="ok" class="radio-btn">15%</label>
+
+          <input type="radio" id="bad" name="service" value="0.10" />
+          <label for="bad" class="radio-btn">10%</label>
+
+          <input type="radio" id="never-return" name="service" value="0" />
+          <label for="never-return" class="radio-btn">0%</label>
+        </div>
+
+        <div class="tip-result">
+          <p>Tip amount: <span id="tip-amount">0</span> Lei</p>
+        </div>
+
+        <label for="people-count">Number of people</label>
+        <select id="people-count" required>
+          <option value="0">0</option>
+          <option value="1">1</option>
+          <option value="2">2</option>
+          <option value="3">3</option>
+          <option value="4">4</option>
+          <option value="5">5</option>
+          <option value="6">6</option>
+          <option value="7">7</option>
+          <option value="8">8</option>
+          <option value="9">9</option>
+          <option value="10">10</option>
+        </select>
+        <button type="button" id="calculate-btn" class="btn">Calculate</button>
+      </div>
+      <div class="result-container">
+        <h2>Results</h2>
+        <div class="result-item">
+          <p>Tip amount /person:</p>
+          <p id="tip-per-person" class="aligned-right">0 Lei</p>
+        </div>
+        <div class="result-item">
+          <p>Total amount /person:</p>
+          <p id="total-per-person" class="aligned-right">0 Lei</p>
+        </div>
+        <button type="button" id="reset-btn" class="btn">Reset</button>
+      </div>
+    </div>
+    <script src="script.js"></script>
+  </body>
+</html>
