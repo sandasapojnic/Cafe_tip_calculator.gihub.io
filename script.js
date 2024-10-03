@@ -1,44 +1,63 @@
-document.getElementById('calculate-btn').addEventListener('click', calculateBill);
-document.getElementById('reset-btn').addEventListener('click', resetForm);
-
+// Initial element targeting using querySelector
+const calcBill = document.querySelector('#calculate-btn');
+const resetFormElem = document.querySelector('#reset-btn');
+const totalBillElem = document.querySelector('#total-bill');
+const numberOfPeopleElem = document.querySelector('#people-count');
 const serviceRadioButtons = document.querySelectorAll('input[name="service"]');
+const tipAmountElem = document.querySelector('#tip-amount');
+const tipPerPersonElem = document.querySelector('#tip-per-person');
+const totalPerPersonElem = document.querySelector('#total-per-person');
+
+// Add event listener to radio buttons
 serviceRadioButtons.forEach((radio) => {
     radio.addEventListener('change', updateTipAmount);
 });
 
+// Function to calculate the bill
 function calculateBill() {
-    const totalBill = parseFloat(document.getElementById('total-bill').value);
-    const serviceLevel = parseFloat(document.querySelector('input[name="service"]:checked').value);
-    const numberOfPeople = parseInt(document.getElementById('people-count').value);
-
-    if (isNaN(totalBill) || totalBill <= 0) {
-        alert("Introdu o sumă validă pentru factura totală.");
+    const totalBill = Number(totalBillElem.value); 
+    const serviceLevel = Number(document.querySelector('input[name="service"]:checked').value);
+    const numberOfPeople = Number(numberOfPeopleElem.value); 
+    
+    // Validate the total bill amount
+    if (isNaN(totalBill) || totalBill <= 0 || numberOfPeople <= 0) {
+        alert("Please enter a valid total bill amount or number of people.");
         return;
     }
 
+    // Calculate the tip and total amount per person
     const tipAmount = totalBill * serviceLevel;
     const totalAmountPerPerson = (totalBill + tipAmount) / numberOfPeople;
     const tipPerPerson = tipAmount / numberOfPeople;
 
-    document.getElementById('tip-per-person').textContent = tipPerPerson.toFixed(2) + " Lei";
-    document.getElementById('total-per-person').textContent = totalAmountPerPerson.toFixed(2) + " Lei";
+    // Display the results
+    tipPerPersonElem.textContent = tipPerPerson.toFixed(2) + " Lei";
+    totalPerPersonElem.textContent = totalAmountPerPerson.toFixed(2) + " Lei";
 }
 
+// Function to update the tip amount when a service level is selected
 function updateTipAmount() {
-    const totalBill = parseFloat(document.getElementById('total-bill').value);
-    const serviceLevel = parseFloat(document.querySelector('input[name="service"]:checked').value);
+    const totalBill = Number(totalBillElem.value); 
+    const serviceLevel = Number(document.querySelector('input[name="service"]:checked').value); 
 
+    // Check total bill and update the tip amount
     if (!isNaN(totalBill) && totalBill > 0) {
         const tipAmount = totalBill * serviceLevel;
-        document.getElementById('tip-amount').textContent = tipAmount.toFixed(2);
+        tipAmountElem.textContent = tipAmount.toFixed(2);
     }
 }
 
+// Function to reset the form
 function resetForm() {
-    document.getElementById('total-bill').value = '';
+    // Reset all values
+    totalBillElem.value = '';
     document.querySelector('input[name="service"]:checked').checked = false;
-    document.getElementById('people-count').value = '0';
-    document.getElementById('tip-amount').textContent = '0';
-    document.getElementById('tip-per-person').textContent = '0 Lei';
-    document.getElementById('total-per-person').textContent = '0 Lei';
+    numberOfPeopleElem.value = '0';  
+    tipAmountElem.textContent = '0';
+    tipPerPersonElem.textContent = '0 Lei';
+    totalPerPersonElem.textContent = '0 Lei';
 }
+
+// Event listeners for "Calculate" and "Reset" buttons
+calcBill.addEventListener('click', calculateBill);
+resetFormElem.addEventListener('click', resetForm);
