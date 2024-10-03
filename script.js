@@ -16,17 +16,20 @@ serviceRadioButtons.forEach((radio) => {
 // Function to calculate the bill
 function calculateBill() {
   const totalBill = Number(totalBillElem.value);
-  const serviceLevel = Number(
-    document.querySelector('input[name="service"]:checked').value
-  );
+  let serviceLevel = document.querySelector('input[name="service"]:checked');
   const numberOfPeople = Number(numberOfPeopleElem.value);
+
+   if (serviceLevel)
+   {
+      serviceLevel =  Number(serviceLevel.value);
+   }
 
   // Validate the total bill amount
   if (isNaN(totalBill) || totalBill <= 0 || numberOfPeople <= 0) {
     alert("Please enter a valid total bill amount or number of people.");
     return;
   }
-
+  
   // Calculate the tip and total amount per person
   const tipAmount = totalBill * serviceLevel;
   const totalAmountPerPerson = (totalBill + tipAmount) / numberOfPeople;
